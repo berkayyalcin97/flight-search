@@ -70,8 +70,8 @@ import java.util.UUID;
     }
     private List<FlightDto> mockApiRequest() {
         List<FlightDto> flights = new ArrayList<>();
-        flights.add(new FlightDto("Amadeus Airport", "MockAirport", LocalDateTime.now(), LocalDateTime.now().plusHours(3), 200.0));
-        flights.add(new FlightDto("Mock Airport", "Amadeus Airport", LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(1).plusHours(4), 300.0));
+        flights.add(new FlightDto("Amadeus Airport", "MockAirport", "22-09-2023 14:12", "22-09-2023 18:12", 200.0));
+        flights.add(new FlightDto("Mock Airport", "Amadeus Airport","22-09-2023 14:12", "22-09-2023 18:12", 300.0));
         return flights;
     }
 
@@ -82,13 +82,6 @@ import java.util.UUID;
                 .departureDateTime(flightDto.getDepartureDateTime())
                 .returnDateTime(flightDto.getReturnDateTime())
                 .price(flightDto.getPrice()).build();
-//        Flight flight = new Flight();
-//        flight.setDepartureAirport(flightDto.getDepartureAirport());
-//        flight.setArrivalAirport(flightDto.getArrivalAirport());
-//        flight.setDepartureDateTime(flightDto.getDepartureDateTime());
-//        flight.setReturnDateTime(flightDto.getReturnDateTime());
-//        flight.setPrice(flightDto.getPrice());
-
         return flight;
     }
 }
