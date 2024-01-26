@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+
+        - id: flight-service
+          uri: lb://flight-service
+          predicates:
+            - Path= /api/flight-service/**
+          filters:
+            - RewritePath=/api/flight-service/v1/(?<segment>.*), /api/flight-service/$\{segment}
+
+        - id: airport-service
+          uri: lb://airport-service
+          predicates:
+            - Path= /api/airport-service/**
+          filters:
+            - RewritePath=/api/airport-service/v1/(?<segment>.*), /api/airport-service/$\{segment}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+
+server:
+  port: 8080
+
+
