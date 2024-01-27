@@ -1,6 +1,7 @@
 package tr.com.amadeus.flightservice.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tr.com.amadeus.flightservice.dto.FlightDto;
@@ -40,5 +41,11 @@ public class FlightController {
         flightService.deleteFlight(id);
         return ResponseEntity.ok().build();
     }
-
+    @GetMapping("/search")
+    public ResponseEntity<List<FlightDto>> searchFlights(@RequestParam String departureAirport,
+                                      @RequestParam String arrivalAirport,
+                                      @RequestParam String departureDateTime,
+                                      @RequestParam(required = false) String returnDateTime) {
+        return ResponseEntity.ok(flightService.searchFlights(departureAirport, arrivalAirport, departureDateTime, returnDateTime)) ;
+    }
 }

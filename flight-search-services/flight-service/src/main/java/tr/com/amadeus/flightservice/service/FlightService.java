@@ -6,11 +6,10 @@ import org.springframework.stereotype.Service;
 import tr.com.amadeus.flightservice.dto.FlightDto;
 import tr.com.amadeus.flightservice.model.Flight;
 import tr.com.amadeus.flightservice.repository.FlightRepository;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor public class FlightService {
@@ -84,4 +83,24 @@ import java.util.UUID;
                 .price(flightDto.getPrice()).build();
         return flight;
     }
+
+
+    public List<FlightDto> searchFlights(String departureAirport, String arrivalAirport, String departureDateTime, String returnDateTime) {
+        List<Flight> flights;
+
+        //Two way
+        if (returnDateTime != null && !returnDateTime.isEmpty()) {
+            flights = flightRepository.searchTwoWayFlights(departureAirport, arrivalAirport, departureDateTime, returnDateTime);
+           flights.addAll(flightRepository.searchOneWayFlights(arrivalAirport,departureAirport,returnDateTime)) ;
+        } else {
+            // One Way
+            flights = flightRepository.searchOneWayFlights(departureAirport, arrivalAirport, departureDateTime);
+        }
+
+
+        return flights.stream()
+                .map(flight -> mapFlightToFlightDto(flight))
+                .collect(Collectors.toList());
+    }
+
 }
