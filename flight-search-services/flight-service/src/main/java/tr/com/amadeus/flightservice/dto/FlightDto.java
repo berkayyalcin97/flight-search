@@ -1,5 +1,6 @@
 package tr.com.amadeus.flightservice.dto;
 
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +15,9 @@ import java.time.LocalDateTime;
 public class FlightDto {
     private String departureAirport;
     private String arrivalAirport;
+    @Pattern(regexp = "DD:MM:YYYY HH:mm", message = "Please use the format DD:MM:YYYY HH:mm")
     private String departureDateTime;
+    @Pattern(regexp = "DD:MM:YYYY HH:mm", message = "Please use the format DD:MM:YYYY HH:mm")
     private String returnDateTime;
     private double price;
 }

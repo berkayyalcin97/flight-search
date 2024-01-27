@@ -3,6 +3,7 @@ package tr.com.amadeus.flightservice.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +27,9 @@ public class Flight {
 
     private String departureAirport;
     private String arrivalAirport;
+    @Pattern(regexp = "DD:MM:YYYY HH:mm", message = "Please use the format DD:MM:YYYY HH:mm")
     private String departureDateTime;
+    @Pattern(regexp = "DD:MM:YYYY HH:mm", message = "Please use the format DD:MM:YYYY HH:mm")
     private String returnDateTime;
     private double price;
 
