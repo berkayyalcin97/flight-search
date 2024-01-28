@@ -12,10 +12,9 @@ public class ScheduledJob {
 
     private final FlightService flightService;
 
-    //every 30 min */30 * * * *
-    //every 10 min 0 */10 * * * ?
-    //every 10 sec */10 * * * * *
-    @Scheduled(cron = "0 */10 * * * ?")
+
+    //every 2 min */2 * * * *
+    @Scheduled(cron = "0 */2 * * * ?")
     public void executeScheduledJob() {
         flightService.fetchMockDataAndSaveToDatabase();
     }
